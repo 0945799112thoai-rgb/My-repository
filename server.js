@@ -17,6 +17,10 @@ app.get('/home', (req, res) => {
   res.sendFile(path.join(__dirname, 'home', 'Templates', 'home.html'));
 });
 
+app.get('/app', (req, res) => {
+  res.sendFile(path.join(__dirname, 'home', 'Templates', 'app.html'));
+});
+
 // 4. Khởi động Server (Server bắt đầu lắng nghe yêu cầu)
 app.listen(PORT, () => {
   console.log(`✅ Server đang chạy thành công tại http://localhost:${PORT}`);
