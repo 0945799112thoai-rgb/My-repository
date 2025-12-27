@@ -25,6 +25,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-jcm5mkjg-!=fo303p-mb)2lmbv+^yv7hga@2_vu=(l33)*(r3o'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+#DEBUG = False
 DEBUG = True
 
 #ALLOWED_HOSTS = []
@@ -45,7 +46,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'home',
+    'home.apps.HomeConfig',
     'rest_framework',
     'corsheaders',
     
@@ -78,10 +79,11 @@ ROOT_URLCONF = 'DanEmAnhTien.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'home' / 'Templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.request',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -98,23 +100,8 @@ WSGI_APPLICATION = 'DanEmAnhTien.wsgi.application'
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.mysql",
-        "NAME": "DanEmAnhTien",
-        "USER": "root",
-        "PASSWORD": "",
-        "HOST": "localhost",
-    }
-}
-
-import os
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': os.getenv('DanEmAnhTien'),
-        'USER': os.getenv('root'),
-        'PASSWORD': os.getenv(''),
-        'HOST': os.getenv('localhost'),
-        'PORT': os.getenv('DB_PORT', '3000'),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -154,9 +141,32 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / "static"]
+
+# Nơi chứa file tĩnh trong app của bạn
+STATICFILES_DIRS = [
+    BASE_DIR / "home" / "static",
+]
+
+# Nơi Django gom file về khi chạy collectstatic
 STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Cấu hình Whitenoise để chạy file tĩnh nhanh hơn (nếu dùng)
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
+# Default primary key field type
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# URL để truy cập file tĩnh
+STATIC_URL = '/static/'
+# Nơi Django gom file tĩnh khi chạy collectstatic
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+# Nếu bạn có thêm thư mục tĩnh ngoài app
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'home', 'static'),
+]
 
 
 from datetime import timedelta

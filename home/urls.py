@@ -3,9 +3,6 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path('', views.child1),
-]
-
-urlpatterns = [
-    path('api/hello/', views.hello),
+    path('', views.trangchu),
+    path('child1/', views.child1)
 ]

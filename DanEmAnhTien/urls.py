@@ -17,12 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from home import views as home
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('home.urls'))
-]
-
 from django.urls import path
 from rest_framework_simplejwt.views import (
     TokenObtainPairView,
@@ -30,7 +24,10 @@ from rest_framework_simplejwt.views import (
 )
 
 urlpatterns = [
-    # Các url khác ...
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),  # Lấy token (login)
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'), # Làm mới token
+    path('admin/', admin.site.urls),
+    path('', include('home.urls')),
+    path('child1/', include('home.urls')),
+    # Các url cho JWT Token
+    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ]
