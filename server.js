@@ -5,8 +5,10 @@ const path = require('path');
 const app = express();
 // cho phép server đọc dữ liệu dạng JSON
 app.use(express.json());
-// phục vụ file tĩnh từ thư mục static của Django
-app.use('/static', express.static(path.join(__dirname, 'home', 'static')));
+// phục vụ thư mục staticfiles
+app.use('/static', express.static(path.join(__dirname, 'staticfiles')));
+
+
 
 
 // 2.
@@ -17,7 +19,7 @@ const PORT = process.env.PORT || 3000;
 // 3. Định nghĩa một API đơn giản (route)
 // Khi người dùng truy cập đường dẫn gốc '/', server sẽ trả về câu chào.
 app.get('/', (req, res) => {
-  res.send('Welcome');
+  res.sendFile(path.join(__dirname, 'home', 'Templates', 'base.html'));
 });
 
 app.get('/base', (req, res) => {
