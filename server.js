@@ -9,17 +9,15 @@ app.use(express.json());
 app.use('/static', express.static(path.join(__dirname, 'staticfiles')));
 
 
-
-
 // 2.
 // Lấy cổng từ biến môi trường của Render (process.env.PORT), nếu không có thì dùng 3000 (cho local)
 const PORT = process.env.PORT || 3000; 
 
 
 // 3. Định nghĩa một API đơn giản (route)
-// Khi người dùng truy cập đường dẫn gốc '/', server sẽ trả về câu chào.
+// ví dụ: trả về một trang HTML
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'home', 'Templates', 'base.html'));
+  res.sendFile(path.join(__dirname, 'staticfiles', 'base.html'));
 });
 
 app.get('/base', (req, res) => {
