@@ -1,8 +1,4 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
 <html>
     <head>
         <meta charset="utf-8">
@@ -24,78 +20,109 @@
         <script src="/static/js/myscript.js" > </script>
         <script src="/static/js/owl.carousel.js" > </script>
         <!-- ICON / FAVICON -->
-        <link rel="icon" type="image-icon" href="/static/images/logo.ico">
+        <link rel="icon" type="image-icon" href="/static/images/logobest.png">
     </head>
 
     <body>
-        <!--[if lt IE 7]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
-        <![endif]-->
-
-        <!-- Menu -->
-        <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <!-- Bảng chọn -->
+        <nav class="navbar navbar-expand-lg ">
             <div class="container-fluid">
-                <button class="navbar-toggler  order-1" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Toggle button mở Offcanvas -->
+                <button class="navbar-toggler  order-1" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
+                <!-- Logo -->
                 <a class="navbar-brand order-2" href="#">
-                    <image src="/static/images/logo.ico" width="60" height="60" />
+                    <image src="/static/images/logobest.png" width="60" height="60" alt="Logo"/>
                 </a>
-                <div class="collapse navbar-collapse order-3" id="navbarSupportedContent">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Giới thiệu</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Hoạt động
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Phong trào</a></li>
-                                <li><a class="dropdown-item" href="#">Môn học</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="#">Chuyện chưa kể</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Liên hệ</a>
-                        </li>
-                    </ul>
-                    <form class="d-flex" role="search">
-                        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                        <button class="btn btn-outline-success" type="submit">Search</button>
-                    </form>
+
+                <!-- Offcanvas menu cho toggle-->
+                <div class="offcanvas offcanvas-start order-3" tabindex="-1" id="offcanvasNavbar">
+                    <div class="offcanvas-header">
+                        <h1 class="offcanvas-title">Menu</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div class="offcanvas-body">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item">
+                                <a class="nav-link active fs-5" aria-current="page" href="/child1">Trang chủ</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-5" href="/child2">Giới thiệu</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a class="nav-link fs-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Hoạt động
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item fs-7" href="#">Phong trào</a></li>
+                                    <li><a class="dropdown-item fs-7" href="#">Môn học</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item fs-7" href="#">Chuyện chưa kể</a></li>
+                                </ul>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link fs-5" href="#">Liên hệ</a>
+                            </li>
+                        </ul>
+                        <form class="d-flex" role="search">
+                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
+                            <button class="btn btn-outline-success" type="submit">Search</button>
+                        </form>
+                    </div>
                 </div>
+
+                <!-- Nhóm USER bên phải -->
                 <ul class="navbar-nav ms-auto order-4 mb-2 mb-lg-0">
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            USER
+                    <!-- Dropdown chỉ hiện trên desktop -->
+                    <li class="nav-item dropdown d-none d-lg-block">
+                        <a class="nav-link fs-5 dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        User
                         </a>
-                        <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
-                            <li><a class="dropdown-item" href="#">Lịch sử</a></li>
-                            <li><a class="dropdown-item" href="#">Thoát</a></li>
+                        <ul class="dropdown-menu dropdown-menu-end">
+                            <li><a class="dropdown-item fs-7" href="#">Trang cá nhân</a></li>
+                            <li><a class="dropdown-item fs-7" href="#">Lịch sử</a></li>
+                            <li><a class="dropdown-item fs-7" href="#">Thoát</a></li>
+                            <li><hr class="dropdown-divider"></li>
+                            <li><a class="dropdown-item fs-7" href="#">Đăng nhập</a></li>
+                            <li><a class="dropdown-item fs-7" href="#">Đăng kí</a></li>
                         </ul>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Đăng nhập</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Đăng kí</a>
+
+                    <!-- Offcanvas chỉ hiện trên mobile -->
+                    <li class="nav-item d-lg-none">
+                        <button class="btn nav-link fs-5" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUser" aria-controls="offcanvasUser">
+                        User
+                        </button>
+                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUser">
+                            <div class="offcanvas-header">
+                                <h1 class="offcanvas-title">Tài khoản</h1>
+                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            </div>
+                            <div class="offcanvas-body">
+                                <ul class="list-unstyled">
+                                <li><a class="nav-link fs-6" href="#">Trang cá nhân</a></li>
+                                <li><a class="nav-link fs-6" href="#">Lịch sử</a></li>
+                                <li><a class="nav-link fs-6" href="#">Thoát</a></li>
+                                <hr>
+                                <li><a class="nav-link fs-6" href="#">Đăng nhập</a></li>
+                                <li><a class="nav-link fs-6" href="#">Đăng kí</a></li>
+                                </ul>
+                            </div>
+                        </div>
                     </li>
                 </ul>
             </div>
         </nav>
-
+        
+        <!-- Nội dung -->
         <main class="container">
             {% block slider %}{% endblock slider %}
             {% block main %}{% endblock main%}
+            {% block info %}{% endblock info%}
         </main>
 
-        
         <!-- Footer -->
         <footer class="container-fluid bg-danger text-light text-center p-1 mt-2">
             <strong>copyright 2025</strong>

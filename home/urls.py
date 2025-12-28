@@ -4,5 +4,6 @@ from . import views
 
 urlpatterns = [
     path('', views.trangchu),
-    path('child1/', views.child1)
+    path('child1/', views.child1),
+    path('child2/', views.child2),
 ]

@@ -11,3 +11,6 @@ def trangchu(request):
 
 def child1(request):
     return render(request, 'child1.html')
+
+def child2(request):
+    return render(request, 'child2.html')
