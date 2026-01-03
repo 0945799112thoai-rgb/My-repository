@@ -7,9 +7,10 @@
 
 .tree .toggle {
   cursor: pointer;
-  font-weight: bold;
+  font-size: 15px; /* cỡ chữ */
+  font-weight: bold; /*độ đậm */
   display: inline-block;
-  margin: 5px 0;
+  margin: 4px 0;
   position: relative;
   color: #2c3e50;
   transition: color 0.2s;
@@ -60,7 +61,8 @@
   text-decoration: none;
   color: #2980b9;
   display: inline-block;
-  margin: 3px 0;
+  margin: 2px 0;
+  font-size: 14px;        /* nhỏ hơn toggle một chút */
 }
 
 .tree a:hover {
