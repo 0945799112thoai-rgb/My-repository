@@ -5,7 +5,44 @@
 
 <!-- Nội dung block mà file con hiển thị -->
 {% block monhoc %}
-    <h1 class="container-fluid text-left playfair-display">Danh sách môn học<h1>
-        <a href="/sinhhoc" a:hover a:active a:link><p>Sinh học</p></a>
-        <a href="/lichsu" a:hover a:active a:link><p>Lịch sử</p></a>
+<h1 class="container-fluid text-left playfair-display">Danh sách môn học<h1>
+    
+<ul class="tree">
+    <li>
+        <span class="toggle">SINH HỌC</span>
+        <ul>
+            <li>
+                <span class="toggle">Kiểm tra cuối kì I</span>
+                <ul>
+                    <li><a href="sinhhoc.html">Trả lời câu hỏi tự luận</a></li>
+                </ul>
+            </li>
+            <li>
+                <span class="toggle">Thông tin đang được cập nhật</span>
+                <ul>
+                    <li><a href="#">Đang được cập nhật . . .</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+
+    <li>
+        <span class="toggle">LỊCH SỬ</span>
+        <ul>
+            <li>
+                <span class="toggle">Kiểm tra cuối kì I</span>
+                <ul>
+                    <li><a href="lichsu.html">Trả lời câu hỏi tự luận</a></li>
+                </ul>
+            </li>
+            <li>
+                <span class="toggle">Thông tin đang được cập nhật</span>
+                <ul>
+                    <li><a href="#">Đang được cập nhật . . .</a></li>
+                </ul>
+            </li>
+        </ul>
+    </li>
+</ul>
+
 {% endblock monhoc %}

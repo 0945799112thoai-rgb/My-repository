@@ -1,0 +1,69 @@
+/* ===== TREE VIEW ===== */
+.tree, .tree ul {
+  list-style-type: none;
+  margin: 0;
+  padding-left: 20px;
+}
+
+.tree .toggle {
+  cursor: pointer;
+  font-weight: bold;
+  display: inline-block;
+  margin: 5px 0;
+  position: relative;
+  color: #2c3e50;
+  transition: color 0.2s;
+}
+
+.tree .toggle:hover {
+  color: #e67e22; /* đổi màu khi hover */
+}
+
+/* Mũi tên mặc định (đóng) */
+.tree .toggle::before {
+  content: "▶";
+  display: inline-block;
+  margin-right: 6px;
+  font-size: 14px;
+  transition: transform 0.2s;
+  color: #34495e;
+}
+
+/* Khi mở thì xoay mũi tên */
+.tree .toggle.open::before {
+  transform: rotate(90deg);
+  color: #27ae60;
+}
+
+/* Danh sách con ẩn mặc định */
+.tree ul {
+  display: none;
+  margin-left: 20px;
+  border-left: 1px dashed #ccc; /* đường gạch để dễ nhìn phân cấp */
+  padding-left: 10px;
+}
+
+/* Khi mở thì hiện */
+.tree ul.show {
+  display: block;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+/* Hiệu ứng mở */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Link trong tree */
+.tree a {
+  text-decoration: none;
+  color: #2980b9;
+  display: inline-block;
+  margin: 3px 0;
+}
+
+.tree a:hover {
+  text-decoration: underline;
+  color: #c0392b;
+}
