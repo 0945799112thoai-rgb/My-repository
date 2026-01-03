@@ -54,6 +54,10 @@ app.get('/sinhhoc', (req, res) => {
   res.render('sinhhoc.html');
 });
 
+app.get('/lichsu', (req, res) => {
+  res.render('lichsu.html');
+});
+
 // 4. Khởi động Server (Server bắt đầu lắng nghe yêu cầu)
 app.listen(PORT, () => {
   console.log(`✅ Server đang chạy thành công tại http://localhost:${PORT}`);

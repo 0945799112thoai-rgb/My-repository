@@ -26,3 +26,6 @@ def monhoc(request):
 
 def sinhhoc(request):
     return render(request, 'sinhhoc.html')
+
+def lichsu(request):
+    return render(request, 'lichsu.html')

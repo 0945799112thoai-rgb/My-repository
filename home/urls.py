@@ -7,7 +7,9 @@ urlpatterns = [
     path('trangchu/', views.trangchu),
     path('gioithieu/', views.gioithieu),
     path('lienhe/', views.lienhe),
+
     path('minigames/', views.minigames),
     path('monhoc/', views.monhoc),
-    path('sinhhoc/', views.sinhhoc),
+        path('sinhhoc/', views.sinhhoc),
+        path('lichsu/', views.lichsu),
 ]
