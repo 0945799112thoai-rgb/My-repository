@@ -9,7 +9,7 @@ https://docs.djangoproject.com/en/6.0/howto/deployment/wsgi/
 
 import os
 from django.core.wsgi import get_wsgi_application
-from DanEmAnhTien.db_connection import connect_db
+from .db_connection import connect_db
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DanEmAnhTien.settings')
 
