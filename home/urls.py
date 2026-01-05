@@ -8,6 +8,8 @@ urlpatterns = [
     path('gioithieu/', views.gioithieu),
     path('lienhe/', views.lienhe),
 
+    path('ping/', views.ping),
+
     path('minigames/', views.minigames),
     path('monhoc/', views.monhoc),
         path('sinhhoc/', views.sinhhoc),

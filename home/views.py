@@ -18,6 +18,9 @@ def gioithieu(request):
 def lienhe(request):
     return render(request, 'lienhe.html')
 
+def ping(request):
+    return render(request, 'ping.html')
+
 def minigames(request):
     return render(request, 'minigames.html')
 

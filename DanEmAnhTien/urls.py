@@ -30,6 +30,8 @@ urlpatterns = [
     path('trangchu/', include('home.urls')),
     path('gioithieu/', include('home.urls')),
     path('lienhe/', include('home.urls')),
+
+    path('ping/', include('home.urls')),
     
     path('minigames/', include('home.urls')),
     path('monhoc/', include('home.urls')),
