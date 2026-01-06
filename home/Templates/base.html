@@ -81,49 +81,54 @@
                                 <a class="nav-link fs-5 maucuachumenu" href="/lienhe">Liên hệ</a>
                             </li>
                         </ul>
-                        <form class="d-flex" role="search">
-                            <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
-                            <button class="btn btn-outline-success text-white maucuachumenu" type="submit">Search</button>
-                        </form>
                     </div>
                 </div>
 
                 <!-- Nhóm USER bên phải -->
                 <ul class="navbar-nav ms-auto order-4 mb-2 mb-lg-0">
+                    
                     <!-- Dropdown chỉ hiện trên desktop -->
                     <li class="nav-item dropdown d-none d-lg-block">
-                        <a class="nav-link fs-5 dropdown-toggle text-white maucuachumenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        User
-                        </a>
-                        <ul class="dropdown-menu dropdown-menu-end">
-                            <li><a class="dropdown-item fs-7" href="#">Trang cá nhân</a></li>
-                            <li><a class="dropdown-item fs-7" href="#">Lịch sử</a></li>
-                            <li><a class="dropdown-item fs-7" href="#">Thoát</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item fs-7" href="#">Đăng nhập</a></li>
-                        </ul>
+                        <div class="header-right">
+                            {% if request.session.user_id %}
+                                <div class="dropdown">
+                                    <button class="dropbtn nav-link fs-5 dropdown-toggle maucuachumenu" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <a> Hello: {{ request.session.username }} </a> </button>
+                                    <div class="dropdown-menu">
+                                        <a href="/profile"><p style="text-align: right; padding-right: 10px;">Trang cá nhân</p></a>
+                                        <a href="#"><p style="text-align: right; padding-right: 10px;">Lịch sử</p></a>
+                                        <hr>
+                                        <a href="{% url 'logout' %}"><p class="text-danger" style="text-align: right; padding-right: 10px;">Đăng xuất</p></a>
+                                    </div>
+                                </div>
+                            {% else %}
+                                <a href="{% url 'login' %}" class="btn-login"><p class="maucuachumenu" style="text-align: right; background-color: rgba(38, 29, 138, 1); border-radius: 10px; padding: 7px;">Đăng nhập</p></a>
+                            {% endif %}
+                        </div> 
                     </li>
 
                     <!-- Offcanvas chỉ hiện trên mobile -->
                     <li class="nav-item d-lg-none">
-                        <button class="btn nav-link fs-5 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUser" aria-controls="offcanvasUser">
-                        User
-                        </button>
-                        <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUser">
-                            <div class="offcanvas-header">
-                                <h1 class="offcanvas-title">Tài khoản</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                        {% if request.session.user_id %}
+                            <button class="btn nav-link fs-5 text-white" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasUser" aria-controls="offcanvasUser">
+                                <a> Hello: {{ request.session.username }} </a>
+                            </button>
+                            <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasUser">
+                                <div class="offcanvas-header">
+                                    <h1 class="offcanvas-title">Tài khoản</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                                </div>
+                                <div class="offcanvas-body">
+                                    <ul class="list-unstyled">
+                                        <li><a class="nav-link fs-6" href="/profile"><p>Trang cá nhân</p></a></li>
+                                        <li><a class="nav-link fs-6" href="#"><p>Lịch sử</p></a></li>
+                                        <hr>
+                                        <li><a class="nav-link fs-6" href="{% url 'logout' %}"><p class="text-danger">Đăng xuất</p></a></li>
+                                    </ul>
+                                </div>
                             </div>
-                            <div class="offcanvas-body">
-                                <ul class="list-unstyled">
-                                    <li><a class="nav-link fs-6" href="#">Trang cá nhân</a></li>
-                                    <li><a class="nav-link fs-6" href="#">Lịch sử</a></li>
-                                    <li><a class="nav-link fs-6" href="#">Thoát</a></li>
-                                    <hr>
-                                    <li><a class="nav-link fs-6" href="#">Đăng nhập</a></li>
-                                </ul>
-                            </div>
-                        </div>
+                        {% else %}
+                            <a href="{% url 'login' %}" class="btn-login"><p class="text-white" style="text-align: right; background-color: rgba(38, 29, 138, 1); border-radius: 10px; padding: 7px;">Đăng nhập</p></a>
+                        {% endif %}
                     </li>
                 </ul>
             </div>
@@ -196,12 +201,15 @@
             {% block monhoc %}{% endblock monhoc %}
                 {% block sinhhoc %}{% endblock sinhhoc %}
                 {% block lichsu %}{% endblock lichsu %}
+            
+            {% block login %}{% endblock login %}
+            {% block profile %}{% endblock profile %}
         </main>
 
         <!-- Footer      <footer class="container-fluid bg-danger text-light text-center p-1 mt-3">
             <strong>copyright 2025</strong>
         </footer> -->
-
+        {% block footer %}
         <footer class="container-fluid footer-bg text-light text-center p-1 mt-3">
             <div class="footer-left">
                 <p class="text-white">KẾT NỐI VỚI CHUYÊN SỬ - ĐỊA 25-28</p>
@@ -271,6 +279,7 @@
             </div>
         <script src="/static/js/báo-copy-tin-nhắn.js"></script>
         </footer>
+        {% endblock footer %}
     </body>
 
 </html>

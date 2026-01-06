@@ -387,12 +387,7 @@ main {
   border-radius: 4px;        /* bo góc nhẹ */
 }
 .maucuachumenu {
-  color: white !important;
-}
-@media (max-width: 991.8px) {
-  .maucuachumenu {
-    color: black !important;
-  }
+  color: rgb(255, 255, 255) !important;
 }
 @media (min-width: 992px) {
   /*3 cái cho chèn ảnh vào thanh menu */

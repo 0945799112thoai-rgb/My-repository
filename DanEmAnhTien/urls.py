@@ -35,8 +35,10 @@ urlpatterns = [
     
     path('minigames/', include('home.urls')),
     path('monhoc/', include('home.urls')),
-        path('sinhhoc/', include('home.urls')),
-        path('lichsu/', include('home.urls')),
+    path('sinhhoc/', include('home.urls')),
+    path('lichsu/', include('home.urls')),
+
+    path('profile/', include('home.urls')),
     
     # Các url cho JWT Token
     path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
