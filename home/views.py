@@ -72,3 +72,4 @@ def sinhhoc(request):
 
 def lichsu(request):
     return render(request, 'lichsu.html')
+

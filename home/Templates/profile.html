@@ -6,12 +6,13 @@
 <!-- Nội dung block mà file con hiển thị -->
 {% block profile %}
 <div class="profile-card">
-    <h2>Thông tin tài khoản</h2>
-    <hr>
+    <h1 class="container-fluid text-left playfair-display">Thông tin tài khoản<h1>
+
     <p><strong>Họ và tên:</strong> {{ request.session.full_name }}</p>
     <p><strong>Tên đăng nhập:</strong> {{ request.session.username }}</p>
-    <p><strong>Email quản trị:</strong> admin@gmail.com</p>
+    <p><strong>Email quản trị:</strong> {{ request.session.email }}</p>
     <br>
-    <a href="{% url 'home' %}">← Quay lại trang chủ</a>
 </div>
+
+<a href="/"> <p style="text-align: right;"> ← Quay lại trang chủ </p> </a>
 {% endblock profile %}
