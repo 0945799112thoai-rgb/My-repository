@@ -387,12 +387,21 @@ main {
   border-radius: 4px;        /* bo góc nhẹ */
 }
 .maucuachumenu {
-  color: rgb(255, 255, 255) !important;
+  color: rgb(38, 29, 138) !important;
+}
+.outline-text {
+  color: rgb(38, 29, 138);
+  -webkit-text-stroke: 0.01px rgb(255, 255, 255);
+  text-shadow: 
+    -1px -1px 0 rgb(255, 255, 255),  
+     1px -1px 0 rgb(255, 255, 255),
+    -1px  1px 0 rgb(255, 255, 255),
+     1px  1px 0 rgb(255, 255, 255);
 }
 @media (max-width: 991.8) {
-  .maucuachumenu {
-  color: rgb(0, 0, 0) !important;
-}
+  .maucuachumenu{
+    color: rgb(0, 0, 0) !important;
+  }
 }
 @media (min-width: 992px) {
   /*3 cái cho chèn ảnh vào thanh menu */
