@@ -386,8 +386,8 @@ main {
   padding: 4px 8px;          /* chỉnh khoảng cách cho đẹp */
   border-radius: 4px;        /* bo góc nhẹ */
 }
-.maucuachumenu {
-  color: rgb(38, 29, 138) !important;
+.maucuachumenuchodangnhap {
+  color: rgb(255, 255, 255) !important;
 }
 .outline-text {
   color: rgb(38, 29, 138);
