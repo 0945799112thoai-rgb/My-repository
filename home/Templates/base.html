@@ -144,7 +144,7 @@
                                             Trang cá nhân
                                         </a>
                                         
-                                        <a class="dropdown-item" href="#" style="text-align: right; padding: 8px 10px; display: block; text-decoration: none; color: black;">
+                                        <a class="dropdown-item" href="{% url 'history' %}" style="text-align: right; padding: 8px 10px; display: block; text-decoration: none; color: black;">
                                             Lịch sử
                                         </a>
                                         
@@ -182,7 +182,7 @@
                                 <div class="offcanvas-body">
                                     <ul class="list-unstyled">
                                         <li><a class="nav-link fs-6" href="/profile"><p>Trang cá nhân</p></a></li>
-                                        <li><a class="nav-link fs-6" href="#"><p>Lịch sử</p></a></li>
+                                        <li><a class="nav-link fs-6" href="{% url 'history' %}"><p>Lịch sử</p></a></li>
                                         <hr>
                                         <li><a class="nav-link fs-6" href="{% url 'logout' %}"><p class="text-danger"><strong>Đăng xuất</strong></p></a></li>
                                     </ul>

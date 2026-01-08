@@ -81,51 +81,81 @@ def edit_profile_view(request):
     return render(request, 'edit_profile.html', {'user': user})
 
 # 6. Thông tin lịch sử người dùng
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from .models import UserHistory
-from django.utils import timezone
+from collections import defaultdict
 import datetime
 
+# --- HÀM 1: HIỂN THỊ LỊCH SỬ (CHỈ CẦN 1 HÀM NÀY) ---
 def history_view(request):
     if not request.session.get('user_id'):
         return redirect('login')
     
     uid = request.session['user_id']
-    # Lấy lịch sử, sắp xếp mới nhất lên đầu
-    histories = UserHistory.objects(user_id=uid).order_by('-access_time')
     
-    total_visits = histories.count()
-    total_seconds = sum(h.duration for h in histories)
+    # 1. Lấy TẤT CẢ dữ liệu để tính số liệu tổng quát và biểu đồ
+    all_histories = UserHistory.objects(user_id=uid)
+    total_visits = all_histories.count()
+    total_sec = sum(item.duration for item in all_histories)
     
-    # Tính Tổng giờ : phút
-    total_hours = total_seconds // 3600
-    total_minutes = (total_seconds % 3600) // 60
-    duration_str = f"{total_hours} giờ {total_minutes} phút"
+    # Tính toán chuỗi thời gian hiển thị
+    total_h = total_sec // 3600
+    total_m = (total_sec % 3600) // 60
+    total_time_str = f"{total_h} giờ {total_m} phút"
 
-    # Dữ liệu cho biểu đồ (7 ngày gần nhất)
-    # Phần này chúng ta sẽ nhóm dữ liệu theo ngày để vẽ Chart
-    
-    context = {
-        'histories': histories,
+    # 2. Lấy danh sách URL chưa bị ẩn (is_visible=True) để hiện ở bảng
+    visible_histories = UserHistory.objects(user_id=uid, is_visible=True).order_by('-access_time')
+
+    # Xử lý múi giờ +7 cho danh sách hiển thị
+    # QUAN TRỌNG: Tạo một danh sách mới để đảm bảo biến vn_time được lưu lại
+    processed_histories = []
+    for item in visible_histories:
+        # Cộng 7 giờ vào access_time
+        item.vn_time = item.access_time + datetime.timedelta(hours=7)
+        processed_histories.append(item)
+
+    # 3. Xử lý dữ liệu biểu đồ (dùng all_histories để không mất dữ liệu biểu đồ)
+    daily_data = defaultdict(int)
+    for item in all_histories:
+        vn_t = item.access_time + datetime.timedelta(hours=7)
+        date_str = vn_t.strftime('%d/%m/%Y')
+        daily_data[date_str] += item.duration
+
+    # Lấy 7 ngày gần nhất
+    sorted_days = sorted(daily_data.keys(), key=lambda x: datetime.datetime.strptime(x, '%d/%m/%Y'))[-7:]
+    minutes_data = [round(daily_data[day] / 60, 1) for day in sorted_days]
+
+    return render(request, 'history.html', {
+        'histories': processed_histories,
         'total_visits': total_visits,
-        'duration_str': duration_str,
-    }
-    return render(request, 'history.html', context)
+        'total_time_str': total_time_str,
+        'chart_labels': sorted_days,
+        'chart_data': minutes_data,
+    })
 
-# 6.1 javascript tính giờ
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from .models import UserHistory
-import datetime
+# --- HÀM 2: LÀM SẠCH DANH SÁCH (CHUYỂN SANG ẨN) ---
+def clear_history_view(request):
+    if request.method == "POST" and request.session.get('user_id'):
+        uid = request.session['user_id']
+        # Đánh dấu tất cả là ẩn thay vì xóa
+        UserHistory.objects(user_id=uid, is_visible=True).update(set__is_visible=False)
+    return redirect('history')
 
-@csrf_exempt # Cho phép nhận dữ liệu từ Javascript
+# --- HÀM 3: UPDATE DURATION NHẬN DỮ LIỆU THỜI GIAN TỪ JAVASCRIPT (CHẠY NGẦM) ---
+@csrf_exempt
 def update_duration_view(request):
     if request.method == "POST" and request.session.get('user_id'):
         uid = request.session['user_id']
         url = request.POST.get('url')
-        duration = int(float(request.POST.get('duration', 0)))
+        # Lấy số giây từ Javascript gửi về
+        try:
+            duration = int(float(request.POST.get('duration', 0)))
+        except ValueError:
+            duration = 0
 
-        if duration > 0:
-            # Lưu bản ghi mới vào MongoDB
+        if duration > 2:  # Chỉ lưu nếu ở lại trang lâu hơn 2 giây
             UserHistory(
                 user_id=uid,
                 url=url,
@@ -133,70 +163,9 @@ def update_duration_view(request):
                 duration=duration
             ).save()
             return JsonResponse({"status": "success"})
+            
     return JsonResponse({"status": "failed"}, status=400)
 
-# 6.2 Thể hiện giờ
-def history_view(request):
-    uid = request.session.get('user_id')
-    # Lấy dữ liệu từ MongoDB
-    histories = UserHistory.objects(user_id=uid).order_by('-access_time')
-
-    total_visits = histories.count()
-    total_sec = sum(h.duration for h in histories)
-    
-    # Tính giờ/phút
-    h = total_sec // 3600
-    m = (total_sec % 3600) // 60
-    total_time_str = f"{h} giờ {m} phút"
-
-    # Xử lý dữ liệu hiển thị danh sách (Cộng 7 giờ cho đúng giờ VN)
-    for item in histories:
-        item.local_time = item.access_time + datetime.timedelta(hours=7)
-
-    return render(request, 'history.html', {
-        'histories': histories,
-        'total_visits': total_visits,
-        'total_time_str': total_time_str
-    })
-
-# 6.3 Xử lí biểu đồ cho thời gian người dùng
-from django.db.models import Sum
-from collections import defaultdict
-
-def history_view(request):
-    uid = request.session.get('user_id')
-    histories = UserHistory.objects(user_id=uid).order_by('-access_time')
-    # --- BỔ SUNG ĐOẠN NÀY ĐỂ HẾT LỖI ---
-    total_visits = histories.count()
-    total_sec = sum(h.duration for h in histories)
-    # Tính giờ/phút
-    h = total_sec // 3600
-    m = (total_sec % 3600) // 60
-    total_time_str = f"{h} giờ {m} phút"
-    # ----------------------------------
-    # --- Xử lý dữ liệu cho Biểu đồ ---
-    daily_data = defaultdict(int)
-    for h_item in histories:
-        # Chuyển về giờ VN để nhóm cho đúng ngày
-        vn_time = h.access_time + datetime.timedelta(hours=7)
-        date_str = vn_time.strftime('%d/%m/%Y')
-        daily_data[date_str] += h.duration
-
-    # Lấy 7 ngày gần nhất (sắp xếp theo thứ tự thời gian tăng dần để vẽ biểu đồ)
-    sorted_days = sorted(daily_data.keys(), key=lambda x: datetime.datetime.strptime(x, '%d/%m/%Y'))[-7:]
-    
-    # Chuyển giây thành phút để biểu đồ dễ nhìn hơn
-    minutes_data = [round(daily_data[day] / 60, 1) for day in sorted_days]
-
-    # ... các phần tính toán cũ (total_visits, total_time_str) ...
-
-    return render(request, 'history.html', {
-        'histories': histories,
-        'total_visits': total_visits,
-        'total_time_str': total_time_str,
-        'chart_labels': sorted_days, # Các ngày (Trục X)
-        'chart_data': minutes_data,  # Số phút (Trục Y)
-    })
 
 # Create your views here.
 #def child1(request):

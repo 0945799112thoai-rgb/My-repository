@@ -26,5 +26,7 @@ urlpatterns = [
     path('profile/', views.profile_view, name='profile'),
     path('edit-profile/', views.edit_profile_view, name='edit_profile'),
 
+    path('history/', views.history_view, name='history'),
     path('update-duration/', views.update_duration_view, name='update_duration'),
+    path('clear-history/', views.clear_history_view, name='clear_history'),
 ]

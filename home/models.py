@@ -1,7 +1,7 @@
 from django.db import models
 
 # Create your models here.
-from mongoengine import Document, StringField, EmailField, DateTimeField, IntField, ReferenceField
+from mongoengine import Document, StringField, EmailField, DateTimeField, IntField, ReferenceField, BooleanField
 import datetime
 
 class UserAccount(Document):
@@ -19,5 +19,6 @@ class UserAccount(Document):
 class UserHistory(Document):
     user_id = StringField(required=True)
     url = StringField()
-    access_time = DateTimeField(default=datetime.datetime.utcnow) # Lưu UTC, khi hiện sẽ +7
-    duration = IntField(default=0)  # Thời gian ở lại trang tính bằng giây
+    access_time = DateTimeField(default=datetime.datetime.utcnow)
+    duration = IntField(default=0)
+    is_visible = BooleanField(default=True) # Dòng này giúp chức năng xóa hoạt động
