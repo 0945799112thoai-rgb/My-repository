@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+<!-- Xóa đi nội dung trong block của file gốc -->
+{% block base %}{% endblock base %}
+
+<!-- Nội dung block mà file con hiển thị -->
+{% block edit_profile %}
+<div style="display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: none">
+    <form method="POST" style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); width: 350px;">
+        {% csrf_token %}
+        <h2 style="text-align: center; color: #333;">Chỉnh sửa hồ sơ</h2>
+        
+        <div style="margin-bottom: 15px;">
+            <label>Họ và tên:</label>
+            <input type="text" name="full_name" value="{{ user.full_name }}" style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #ddd;">
+        </div>
+
+        <div style="margin-bottom: 20px;">
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ user.email }}" style="width: 100%; padding: 10px; margin-top: 5px; border-radius: 8px; border: 1px solid #ddd;">
+        </div>
+
+        <button type="submit" style="width: 100%; padding: 12px; background: #261d8a; color: white; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;">
+            Lưu thay đổi
+        </button>
+        
+        <a href="{% url 'profile' %}" style="display: block; text-align: center; margin-top: 15px; text-decoration: none; color: #666; font-size: 14px;">Hủy bỏ</a>
+    </form>
+</div>
+{% endblock edit_profile %}

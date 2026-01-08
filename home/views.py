@@ -54,6 +54,33 @@ def logout_view(request):
     request.session.flush()
     return render(request, 'base.html')
 
+# 5. Sửa thông tin người dùng
+def edit_profile_view(request):
+    if not request.session.get('user_id'):
+        return redirect('login')
+    
+    # Lấy thông tin hiện tại từ MongoDB
+    user = UserAccount.objects(id=request.session['user_id']).first()
+
+    if request.method == "POST":
+        # Lấy dữ liệu mới từ Form
+        new_full_name = request.POST.get('full_name')
+        new_email = request.POST.get('email')
+
+        # Cập nhật vào Database
+        user.full_name = new_full_name
+        user.email = new_email
+        user.save()
+
+        # Cập nhật lại "túi" Session để giao diện đổi tên ngay lập tức
+        request.session['full_name'] = new_full_name
+        request.session['email'] = new_email
+
+        return redirect('profile') # Lưu xong thì quay về trang cá nhân
+
+    return render(request, 'edit_profile.html', {'user': user})
+
+
 
 # Create your views here.
 #def child1(request):

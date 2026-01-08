@@ -7,17 +7,27 @@
 {% block more %}
 {% load static %}
 <h1 class="container-fluid text-left playfair-display">Thông tin liên hệ</h1>
-<h2>Admin (Huyền Thoại)
-    <p></p>
-    <br>
-    <p>Sđt: 0945799112</p>
-    <p>Zalo: 0945799112</p>
-    <p>Email: 0945799112thoai@gmail.com</P>
-    <p>Tài khoản ngân hàng: 09457999112 (sacombank)</p>
-    <br>
-    <figure>
-        <img src="/static/images/QR.png" alt="QR Code"  style="display:block; margin-left; border-radius:5px;" width="200">
-        <figcaption> <p><i>Ủng hộ chúng tôi</i></p> </figcaption>
-    </figure>
 
+<div style="display: flex; justify-content: center; align-items: center; min-height: 80vh; background-color: none;">
+    <div style="background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(49, 49, 158, 0.17); text-align: center; width: 500Spx;">
+
+        <h2 style="color: #333; margin-bottom: 5px;">Đặng Nguyễn Huyền Thoại (Admin)</h2>
+        
+        <hr style="border: 0; border-top: 1px solid #261d8a; margin-bottom: 20px;">
+
+        <div class="info-group">
+            <strong>
+            <p>Sđt: 0945799112</p>
+            <p>Zalo: 0945799112</p>
+            <p>Email: 0945799112thoai@gmail.com</P>
+            <p>Tài khoản ngân hàng: 09457999112 (sacombank)</p>
+            </strong>
+            <br>
+            <figure>
+                <img src="/static/images/QR.png" class="d-block mx-auto" alt="QR Code"  style="display:block; margin-left; border-radius:5px;" width="200">
+                <figcaption> <p style="color: rgba(53, 122, 19, 1); padding: 20px;"><i>Ủng hộ chúng tôi</i></p> </figcaption>
+            </figure>
+        </div>
+    </div>
+</div>
 {% endblock more %}
