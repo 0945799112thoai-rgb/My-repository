@@ -114,11 +114,11 @@ function handleChoice(choice) {
     } else {
         document.getElementById('sound-wrong').play();
         const gameArea = document.getElementById('game-area');
-        gameArea.classList.add('shake-effect');
+        gameArea.classList.add('shake');
         
         gameArea.style.backgroundColor = 'rgba(255, 0, 0, 0.2)';
         setTimeout(() => { 
-            gameArea.classList.remove('shake-effect');
+            gameArea.classList.remove('shake');
             gameArea.style.backgroundColor = 'transparent'; 
         }, 300);
     }

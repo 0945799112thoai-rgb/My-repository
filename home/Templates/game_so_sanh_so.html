@@ -33,13 +33,11 @@
 {% block game_so_sanh_so %}
     {% csrf_token %}
     {% load static %}
+    <script>
+        const IS_GUEST = {% if request.session.user_id %}false{% else %}true{% endif %}; // Django sẽ tự điền true nếu không có session user_id
+    </script>
     <script src="/static/js/game-so-sánh-số.js" ></script>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="/static/js/game-so-sánh-số.js"></script>
-    <script>
-        // Django sẽ tự điền true nếu không có session user_id
-        const IS_GUEST = {% if request.session.user_id %}false{% else %}true{% endif %};
-    </script>
 
     <div class="container text-center mt-5">
         <div id="game-menu">
@@ -103,10 +101,10 @@
     </style>
 
 
-<audio id="sound-correct" src="/static/sounds/correct.mp3" preload="auto"></audio>
-<audio id="sound-wrong" src="/static/sounds/wrong.mp3" preload="auto"></audio>
-<audio id="sound-finish" src="/static/sounds/finish.mp3" preload="auto"></audio>
-<audio id="sound-beep" src="/static/sounds/beep.mp3" preload="auto"></audio>
+<audio id="sound-correct" src="{% static 'sounds/correct.mp3' %}" preload="auto"></audio>
+<audio id="sound-wrong" src="{% static 'sounds/wrong.mp3' %}" preload="auto"></audio>
+<audio id="sound-finish" src="{% static 'sounds/finish.mp3' %}" preload="auto"></audio>
+<audio id="sound-beep" src="{% static 'sounds/beep.mp3' %}" preload="auto"></audio>
 
 {% endblock game_so_sanh_so %}
 
